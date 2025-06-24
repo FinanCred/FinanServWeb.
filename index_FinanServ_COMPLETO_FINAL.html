@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FinanServ · Soluciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        header {
+            background-color: #00ff80;
+            padding: 2rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #000;
+        }
+        section {
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+        .box {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 0 10px #00ff80;
+        }
+        label, select, input, textarea {
+            display: block;
+            margin-top: 1rem;
+            font-size: 1rem;
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+        }
+        button {
+            margin-top: 1rem;
+            background-color: #00ff80;
+            color: #000;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        h2 {
+            color: #00ff80;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FinanServ · Soluciones en Créditos</h1>
+        <p>Préstamos semanales y quincenales hasta $1.000.000</p>
+    </header>
+
+    <section>
+        <div class="box">
+            <h2>Simulador de Préstamo</h2>
+            <label for="tipo">Tipo de plan:</label>
+            <select id="tipo">
+                <option value="Semanal">Semanal</option>
+                <option value="Quincenal">Quincenal</option>
+            </select>
+
+            <label for="duracion">Duración:</label>
+            <select id="duracion">
+                <option value="5">5 semanas</option>
+                <option value="10">10 semanas</option>
+                <option value="15">15 semanas</option>
+                <option value="4">4 quincenas</option>
+                <option value="6">6 quincenas</option>
+                <option value="8">8 quincenas</option>
+            </select>
+
+            <label for="monto">Monto solicitado:</label>
+            <input type="number" id="monto" placeholder="Ej: 100000">
+
+            <button id="calculateBtn">Calcular</button>
+            <p id="cuota"></p>
+        </div>
+
+        <div class="box">
+            <h2>¿Quiénes somos?</h2>
+            <p>Somos una empresa dedicada a ofrecer soluciones financieras accesibles a quienes enfrentan dificultades para acceder a créditos tradicionales. En FinanServ creemos en brindar oportunidades con rapidez y sin vueltas.</p>
+        </div>
+
+        <div class="box">
+            <h2>Preguntas frecuentes</h2>
+            <p><strong>¿Qué necesito?</strong> DNI y comprobante de domicilio</p>
+            <p><strong>¿Cuánto tarda la entrega?</strong> 24 hs</p>
+            <p><strong>¿Puedo cancelar antes?</strong> Sí, con descuento</p>
+            <p><strong>¿Cuánto es la tasa?</strong> Varía según el plan. Tasa fija.</p>
+        </div>
+
+        <div class="box">
+            <h2>Formulario de contacto</h2>
+            <form>
+                <input type="text" placeholder="Nombre completo" required>
+                <input type="tel" placeholder="Teléfono (WhatsApp)" required>
+                <input type="email" placeholder="Correo (opcional)">
+                <textarea placeholder="Mensaje o consulta" rows="3"></textarea>
+                <button type="submit">Enviar consulta</button>
+            </form>
+        </div>
+
+        <div class="box">
+            <h2>Contacto directo</h2>
+            <p>Escribinos por WhatsApp: <a href="https://wa.me/541138456256" target="_blank" style="color:#00ff80;">Click aquí</a></p>
+        </div>
+    </section>
+
+    <footer>
+        FinanServ © 2025 · Soluciones en préstamos personales
+    </footer>
+
+    <script>
+        document.getElementById("calculateBtn").addEventListener("click", function () {
+            const tipo = document.getElementById("tipo").value;
+            const duracion = parseInt(document.getElementById("duracion").value);
+            const monto = parseInt(document.getElementById("monto").value);
+
+            if (isNaN(monto) || monto <= 0) {
+                document.getElementById("cuota").innerText = "Ingresá un monto válido.";
+                return;
+            }
+
+            let interes = 0;
+
+            if (tipo === "Semanal") {
+                if (duracion === 5) interes = 0.40;
+                else if (duracion === 10) interes = 0.70;
+                else if (duracion === 15) interes = 1.20;
+            } else if (tipo === "Quincenal") {
+                if (duracion === 4) interes = 0.45;
+                else if (duracion === 6) interes = 0.80;
+                else if (duracion === 8) interes = 1.30;
+            }
+
+            const total = monto + (monto * interes);
+            const cuota = total / duracion;
+
+            document.getElementById("cuota").innerText = "Cuota por pago: $" + cuota.toFixed(2);
+        });
+    </script>
+</body>
+</html>
